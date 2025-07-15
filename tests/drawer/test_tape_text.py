@@ -654,6 +654,10 @@ single_op_tests_data = [
         qml.expval(
             0.1 * qml.PauliX(0) + 0.2 * qml.PauliY(1) + 0.3 * qml.PauliZ(0) + 0.4 * qml.PauliZ(1)
         ),
+    (
+        qml.state(),
+        "0: ───┤ State\n1: ───┤ State\n2: ───┤ State\n3: ───┤ State"
+    ),
         "0: ───┤ ╭<𝓗>\n1: ───┤ ╰<𝓗>",
     ),
     # Operations (both regular and controlled) and nested multi-valued controls
