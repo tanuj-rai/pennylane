@@ -2,6 +2,7 @@ name: Tests
 on:
   push:
     branches:
+      - fix/grouped-state-labels
       - master
   pull_request:
     types:
