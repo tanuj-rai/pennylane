@@ -798,3 +798,25 @@ def test_nested_tapes():
     )
 
     assert qml.draw(circ)() == expected
+
+def test_grouped_measurement_draw_consistency():
+    dev_explicit = qml.device("default.qubit", wires=2)
+    dev_implicit = qml.device("default.qubit")
+
+    @qml.qnode(dev_explicit)
+    def circuit_explicit():
+        qml.H(0)
+        qml.H(1)
+        return qml.state()
+
+    @qml.qnode(dev_implicit)
+    def circuit_implicit():
+        qml.H(0)
+        qml.H(1)
+        return qml.state()
+
+    drawing_explicit = qml.draw(circuit_explicit)()
+    drawing_implicit = qml.draw(circuit_implicit)()
+
+    assert drawing_implicit == drawing_explicit
+
