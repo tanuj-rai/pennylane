@@ -457,11 +457,7 @@ def tape_text(
 
         if config.cur_layer == config.num_op_layers - 1:
             totals = _finalize_layers(totals, config)
-            # New addition to standardize state output
-            if any(isinstance(m, qml.state) for m in tape.measurements):
-                for i in range(config.n_wires):
-                    totals.wire_totals[i] += " State"
-
+            
     # Recursively handle nested tapes #
     tape_totals = "\n".join(totals.finished_lines + totals.wire_totals + totals.bit_totals)
     current_tape_offset = cache["tape_offset"]
