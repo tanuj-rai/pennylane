@@ -44,7 +44,18 @@ def about():
     else:  # pragma: no cover
         plugin_devices = metadata.entry_points(group="pennylane.plugins")
         dist_name = "name"
-    print(check_output([sys.executable, "-m", "pip", "show", "pennylane"]).decode())
+    try:
+        dist = importlib.metadata.distribution("pennylane")
+        print(f"Name: {dist.metadata['Name']}")
+        print(f"Version: {dist.version}")
+        print(f"Requires: {', '.join(dist.requires or [])}")
+    except importlib.metadata.PackageNotFoundError:
+        # Fallback to subprocess (optional, can be removed if not needed)
+        try:
+            print(check_output([sys.executable, "-m", "pip", "show", "pennylane"]).decode())
+        except Exception as e:
+            print(f"Error fetching PennyLane info: {e}")
+
     print(f"Platform info:           {platform.platform(aliased=True)}")
     print(
         f"Python version:          {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}"
