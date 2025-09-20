@@ -15,11 +15,11 @@
 This submodule contains the discrete-variable quantum operations that do
 not depend on any parameters.
 """
-from collections.abc import Hashable
+from collections.abc import Hashable, Sequence
 
 # pylint: disable=arguments-differ
 from copy import copy
-from typing import Literal, Optional, Sequence, Union
+from typing import Literal
 
 import pennylane as qml
 from pennylane.operation import Operation
@@ -124,8 +124,6 @@ class WireCut(Operation):
                 f"{self.name}: wrong number of wires. At least one wire has to be provided."
             )
 
-    # TODO: Remove when PL supports pylint==3.3.6 (it is considered a useless-suppression) [sc-91362]
-    # pylint: disable=unused-argument
     @staticmethod
     def compute_decomposition(wires: WiresLike):
         r"""Representation of the operator as a product of other operators (static method).
@@ -226,9 +224,9 @@ class Snapshot(Operation):
 
     def __init__(
         self,
-        tag: Optional[str] = None,
+        tag: str | None = None,
         measurement=None,
-        shots: Union[Literal["workflow"], None, int, Sequence[int]] = "workflow",
+        shots: Literal["workflow"] | None | int | Sequence[int] = "workflow",
     ):
         if tag and not isinstance(tag, str):
             raise ValueError("Snapshot tags can only be of type 'str'")
@@ -264,7 +262,6 @@ class Snapshot(Operation):
     def _unflatten(cls, data, metadata):
         return cls(tag=metadata[0], measurement=data[0], shots=metadata[1])
 
-    # pylint: disable=W0613
     @staticmethod
     def compute_decomposition(*params, wires=None, **hyperparameters):
         return []

@@ -14,15 +14,17 @@
 """Contains a function to extract a single tape from a QNode"""
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from .construct_batch import construct_batch
 
 if TYPE_CHECKING:
+    from pennylane.tape import QuantumScript
+
     from .qnode import QNode
 
 
-def construct_tape(qnode: QNode, level: Optional[str | int | slice] = "user"):
+def construct_tape(qnode: QNode, level: str | int | slice | None = "user") -> QuantumScript:
     """Constructs the tape for a designated stage in the transform program.
 
     Args:

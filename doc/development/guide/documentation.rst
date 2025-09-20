@@ -499,17 +499,14 @@ a module:
 Building the documentation
 --------------------------
 
-To build the documentation, in addition to the standard PennyLane dependencies,
-the following additional packages are required:
+During standard development, developers can rely on the website built by the CI.
 
-* `Sphinx <http://sphinx-doc.org/>`_
-* `sphinx-automodapi <https://github.com/astropy/sphinx-automodapi>`__
-* `pygments-github-lexers <https://github.com/liluo/pygments-github-lexers>`_
-* `m2r <https://github.com/miyakogi/m2r>`_
-* `sphinx-copybutton <https://github.com/ExecutableBookProject/sphinx-copybutton>`_
+.. image:: view_doc_build.jpeg
+    :width: 400px
+    :align: center
 
-In addition, some pages in the documentation have additional dependencies, including PyTorch, 
-TensorFlow and TensorNetwork. These can all be installed via ``pip``:
+To manually build the documentation, additional packages are required. 
+All the requirements can be installed via:
 
 .. code-block:: console
 
@@ -525,5 +522,5 @@ The documentation can then be found in the :file:`doc/_build/html/` directory.
 
 .. note::
 
-    To build the interfaces documentation, PyTorch and TensorFlow will need to
+    To build the interfaces documentation, PyTorch will need to
     be installed, see :ref:`install_interfaces`.

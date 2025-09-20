@@ -16,7 +16,7 @@ This module contains the ``TransformProgram`` class.
 """
 from collections.abc import Sequence
 from functools import partial
-from typing import Optional, Union, overload
+from typing import overload
 
 from pennylane.exceptions import TransformError
 from pennylane.tape import QuantumScriptBatch
@@ -29,7 +29,7 @@ from .transform_dispatcher import TransformContainer, TransformDispatcher
 def _batch_postprocessing(
     results: ResultBatch,
     individual_fns: list[PostprocessingFn],
-    slices: Union[list[slice], list[int]],
+    slices: list[slice] | list[int],
 ) -> ResultBatch:
     """Broadcast individual post processing functions onto their respective tapes.
 
@@ -54,7 +54,7 @@ def _batch_postprocessing(
     (3.0, 3.5, 8.0)
 
     """
-    return tuple(fn(results[sl]) for fn, sl in zip(individual_fns, slices))
+    return tuple(fn(results[sl]) for fn, sl in zip(individual_fns, slices, strict=True))
 
 
 def _apply_postprocessing_stack(
@@ -159,8 +159,8 @@ class TransformProgram:
 
     def __init__(
         self,
-        initial_program: Optional[Sequence[TransformContainer]] = None,
-        cotransform_cache: Optional[CotransformCache] = None,
+        initial_program: Sequence[TransformContainer] | None = None,
+        cotransform_cache: CotransformCache | None = None,
     ):
         self._transform_program = list(initial_program) if initial_program else []
         self.cotransform_cache = cotransform_cache
@@ -426,7 +426,6 @@ class TransformProgram:
             classical_jacobians = []
             for tape_idx, tape in enumerate(tapes):
                 if argnums is not None:
-                    # pylint: disable=unsubscriptable-object
                     tape.trainable_params = argnums[tape_idx]
                 new_tapes, fn = transform(tape, *targs, **tkwargs)
                 execution_tapes.extend(new_tapes)
