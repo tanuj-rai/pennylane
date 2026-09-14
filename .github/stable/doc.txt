@@ -43,7 +43,7 @@ packaging==24.0
 passlib==1.7.4
 pexpect==4.9.0
 pipx==1.16.7
-platformdirs==4.11.5
+platformdirs==4.11.7
 ptyprocess==0.7.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
@@ -56,7 +56,7 @@ pyparsing==3.1.1
 pyparted==3.12.0
 pyrsistent==0.20.0
 pyserial==3.5
-python-apt==2.7.7+ubuntu5.2
+python-apt==2.7.7+ubuntu5.3
 python-dateutil==2.8.2
 python-debian==0.1.49+ubuntu2
 python-magic==0.4.27
